@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +16,7 @@ public class ByteCodePrintDemo {
     public static void main(String[] args) {
         try {
 //            pathToClass = args[0];
-            pathToClass = "e:/TMP/Hello-1.class";
+            pathToClass = "e:/TMP/Hello-2.class";
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("He-He-He!!! Enter some path to class-file........");
             e.printStackTrace();
@@ -36,7 +37,7 @@ public class ByteCodePrintDemo {
         System.out.println("");
         System.out.println("");
 
-        byte number = 14;
+        byte number = 4;
         printConstantByte(number, byteCodeAnalizer, byteCodeArray);
     }
 
@@ -45,15 +46,33 @@ public class ByteCodePrintDemo {
         int position = byteCodeAnalizer.constantArray[number].address;
         byte type = byteCodeAnalizer.constantArray[number].type;
 
+        byte constantByteSequence[] = new byte[byteCodeAnalizer.constantArray[number].length];
+        byte j = 0;
+
+        System.out.println(byteCodeAnalizer.constantArray[number].length);
+
         System.out.printf("%-22s", byteCodeAnalizer.getConstantTypeName(type));
-        System.out.printf(" length=%2s   ", byteCodeAnalizer.constantArray[number].lenthg);
+        System.out.printf(" length=%2s   ", byteCodeAnalizer.constantArray[number].length);
         System.out.printf("position = %-2s", position);
         System.out.println("");
 
-        for (int i = position; i < (position + byteCodeAnalizer.constantArray[number].lenthg); i++) {
+        System.out.println("\nconstantByteSequence in STRING HEX: ");
+        for (int i = position; i < (position + byteCodeAnalizer.constantArray[number].length); i++) {
             String str1 = String.format("%2s", Integer.toHexString(byteCodeArray[i] & 0xFF)).replace(' ', '0');
             System.out.print(str1 + " ");
+            constantByteSequence[j] = byteCodeArray[i];
+            j++;
         }
+
+        System.out.println("\n\nConstantByteSequence in STRING:");
+        String string = new String(constantByteSequence);
+        System.out.println(string);
+
+        System.out.println("\nconstantByteSequence in BYTE:");
+        for (j = 0; j < constantByteSequence.length; j++) {
+            System.out.print(constantByteSequence[j] + " ");
+        }
+        System.out.println("");
     }
 
     private static byte[] readFileToByteArray (String fileName) {

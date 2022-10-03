@@ -17,7 +17,7 @@ public class ByteCodeAnalizer {
     public void printConstantInfo(ConstantInfo constantInfo) {
         System.out.printf("#%-2s", constantInfo.number);
         System.out.printf(" %-22s", getConstantTypeName(constantInfo.type));
-        System.out.printf(" length=%2s   ", constantInfo.lenthg);
+        System.out.printf(" length=%2s   ", constantInfo.length);
         String str = String.format("position=%4s  ", constantInfo.address).replace(' ', ' ');
         System.out.print(str);
         System.out.printf("   type=%2s", constantInfo.type);
@@ -30,7 +30,7 @@ public class ByteCodeAnalizer {
         int byteArrayOffset = 10;
         for (int i = 0; i < constantCount; i++) {
             constantArray[i] = readConstantInfo(i+1, byteArrayOffset);
-            byteArrayOffset += constantArray[i].lenthg;
+            byteArrayOffset += constantArray[i].length;
         }
     }
 
@@ -38,7 +38,7 @@ public class ByteCodeAnalizer {
         byte constantTypeCode = byteCodeArray[byteArrayOffset];
         int constantLength = calculateConstantLength(constantTypeCode, byteArrayOffset);
         ConstantInfo cnstInf = new ConstantInfo();
-        cnstInf.lenthg = constantLength;
+        cnstInf.length = constantLength;
         cnstInf.type = constantTypeCode;
         cnstInf.number = number;
         cnstInf.address = byteArrayOffset;

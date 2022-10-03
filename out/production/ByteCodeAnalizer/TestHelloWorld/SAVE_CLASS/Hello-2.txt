@@ -1,4 +1,4 @@
-Classfile /E:/__PROJECT__/JAVA/StudyByteCode_004_Analize/out/production/StudyByteCode_004_Analize/TestHelloWorld/Hello.class
+Classfile /E:/__PROJECT__/JAVA/ByteCodeAnalizer/out/production/ByteCodeAnalizer/TestHelloWorld/Hello.class
   Last modified 3 окт. 2022 г.; size 552 bytes
   SHA-256 checksum 16858276fac5b02307306df2fabeada1e1ca9ac8fbc3e93bc6f60beb1b264569
   Compiled from "Hello.java"
